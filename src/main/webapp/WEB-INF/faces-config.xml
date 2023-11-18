@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                                  https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+
+    <managed-bean>
+        <managed-bean-name>xBean</managed-bean-name>
+        <managed-bean-class>com.example.eclipselinkormjsfdemo.worthant.jsfgraph.XBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>resultsControllerBean</managed-bean-name>
+        <managed-bean-class>com.example.eclipselinkormjsfdemo.worthant.jsfgraph.ResultsControllerBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>XBean</property-name>
+            <value>#{xBean}</value>
+        </managed-property>
+    </managed-bean>
+
+
+</faces-config>
