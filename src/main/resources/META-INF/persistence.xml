@@ -4,6 +4,6 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
   <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
-      <class>com.example.eclipselinkormjsfdemo.worthant.jsfgraph.entity.ResultEntity</class>
+      <class>com.worthant.jsfgraph.entity.ResultEntity</class>
   </persistence-unit>
 </persistence>

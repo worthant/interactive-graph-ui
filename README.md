@@ -64,10 +64,16 @@
 
 **Note**: Don't worry if you get disconnected from the server; it's expected. **Calmly** proceed to the next step!
 
-- Execute the following command:
+- Execute the following command(for Helios server):
 
 ```bash
 module add --name=org.postgresql --resources=/usr/local/share/java/classes/postgresql.jar --dependencies=javax.api,javax.transaction.api
+```
+
+- for local machine - download it and execute this command(for linux):
+
+```bash
+module add --name=org.postgresql --resources=/home/boris/Downloads/postgresql.jar --dependencies=javax.api,javax.transaction.api
 ```
 
 ##### 2.3 Update `standalone.xml`

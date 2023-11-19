@@ -1,11 +1,11 @@
-package com.example.eclipselinkormjsfdemo.worthant.jsfgraph.entity;
+package com.worthant.jsfgraph.entity;
 
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
-@Table(name = "lab3_x_test_table", schema = "s367837")
+@Table(name = "point_model", schema = "s368090")
 public class ResultEntity {
     private long id;
     private double x;
@@ -18,7 +18,7 @@ public class ResultEntity {
     )
     @SequenceGenerator(
             name = "sequence-generator",
-            sequenceName = "lab3_x_test_table_id_seq",
+            sequenceName = "point_model_id_seq",
             allocationSize = 1
     )
     public long getId() {

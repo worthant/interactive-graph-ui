@@ -1,7 +1,7 @@
-package com.example.eclipselinkormjsfdemo.worthant.jsfgraph.utils;
+package com.worthant.jsfgraph.utils;
 
-import com.example.eclipselinkormjsfdemo.worthant.jsfgraph.db.DAOFactory;
-import com.example.eclipselinkormjsfdemo.worthant.jsfgraph.entity.ResultEntity;
+import com.worthant.jsfgraph.db.DAOFactory;
+import com.worthant.jsfgraph.entity.ResultEntity;
 
 public class ResultUtils {
 

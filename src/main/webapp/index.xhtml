@@ -11,7 +11,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Test for managed beans</title>
@@ -31,7 +32,34 @@
         <h:commandButton value="Send" styleClass="submit-btn">
             <f:ajax execute="@form" listener="#{resultsControllerBean.addResult(xBean.XBeanValue)}" render="@form results-table"/>
         </h:commandButton>
+
+        <p:remoteCommand name="updateTempValue" action="#{xBean.updateTempValue}" update="temp-table temp-text"/>
     </h:form>
+
+    <h:outputText id="temp-text" name="temp-text-output" value="#{xBean.tempValue}"/>
+
+    <h:form>
+        <p:remoteCommand name="updateTempValue" action="#{xBean.updateTempValue}" update="temp-table"/>
+
+        <h:button value="Update Temp Value" onclick="updateTempValue(); return false;"/>
+    </h:form>
+
+
+    <h:dataTable id="temp-table" var="temp">
+        <h:column>
+            <f:facet name="temp-header">
+                <h:outputText value="temp"/>
+            </f:facet>
+            <h:outputText value="#{xBean.tempValue}"/>
+        </h:column>
+    </h:dataTable>
+
+    <h:button value="Update Temp Value" onclick="updateTempValue(); return false;"/>
+
+    <h:commandButton id="temp-button" value="temp" action="#{xBean.updateTempValue()}">
+        <f:ajax render="temp-text temp-table"/>
+    </h:commandButton>
+
 
     <h:dataTable id="results-table" var="result" value="#{resultsControllerBean.results}">
         <h:column>
@@ -41,6 +69,8 @@
             <h:outputText value="#{result}"/>
         </h:column>
     </h:dataTable>
+
+    <h:outputScript library="js" name="main.js"/>
 </h:body>
 
 </html>

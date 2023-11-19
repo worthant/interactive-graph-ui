@@ -1,4 +1,4 @@
-package com.example.eclipselinkormjsfdemo.worthant.jsfgraph;
+package com.worthant.jsfgraph;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.validator.ValidatorException;
@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class XBean implements Serializable {
     private Double x = 0.0;
+    private Double temp = 0.0;
 
     public Double getXBeanValue(){
         return x;
@@ -42,5 +43,19 @@ public class XBean implements Serializable {
         return "XBean{" +
                 "x=" + x +
                 '}';
+    }
+
+    public Double getTempValue() {
+        return temp;
+    }
+
+    public void setTempValue(Double temp) {
+        this.temp = temp;
+    }
+
+    public void updateTempValue() {
+        System.out.println(temp);
+        System.err.println(temp);
+        temp++;
     }
 }

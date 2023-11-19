@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.example</groupId>
-  <artifactId>eclipselink-orm-jsf-demo</artifactId>
+  <groupId>com.worthant.jsfgraph</groupId>
+  <artifactId>interactive-graph-ui</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>eclipselink-orm-jsf-demo</name>
+  <name>interactive-graph-ui</name>
   <packaging>war</packaging>
 
   <properties>
@@ -45,6 +45,11 @@
           <groupId>org.postgresql</groupId>
           <artifactId>postgresql</artifactId>
           <version>42.6.0</version>
+      </dependency>
+      <dependency>
+          <groupId>org.primefaces</groupId>
+          <artifactId>primefaces</artifactId>
+          <version>12.0.0</version>
       </dependency>
   </dependencies>
 

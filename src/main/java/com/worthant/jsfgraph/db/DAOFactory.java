@@ -1,4 +1,4 @@
-package com.example.eclipselinkormjsfdemo.worthant.jsfgraph.db;
+package com.worthant.jsfgraph.db;
 
 public class DAOFactory {
     private static ResultDAO resultDAO;

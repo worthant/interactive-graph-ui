@@ -1,4 +1,4 @@
-package com.example.eclipselinkormjsfdemo.worthant.jsfgraph.db;
+package com.worthant.jsfgraph.db;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
