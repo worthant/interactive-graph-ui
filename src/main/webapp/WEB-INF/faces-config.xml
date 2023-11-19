@@ -6,13 +6,13 @@
 
     <managed-bean>
         <managed-bean-name>xBean</managed-bean-name>
-        <managed-bean-class>com.example.eclipselinkormjsfdemo.worthant.jsfgraph.XBean</managed-bean-class>
+        <managed-bean-class>com.worthant.jsfgraph.XBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>resultsControllerBean</managed-bean-name>
-        <managed-bean-class>com.example.eclipselinkormjsfdemo.worthant.jsfgraph.ResultsControllerBean</managed-bean-class>
+        <managed-bean-class>com.worthant.jsfgraph.ResultsControllerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>XBean</property-name>

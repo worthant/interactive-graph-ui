@@ -1,8 +1,8 @@
-package com.example.eclipselinkormjsfdemo.worthant.jsfgraph;
+package com.worthant.jsfgraph;
 
-import com.example.eclipselinkormjsfdemo.worthant.jsfgraph.db.DAOFactory;
-import com.example.eclipselinkormjsfdemo.worthant.jsfgraph.entity.ResultEntity;
-import com.example.eclipselinkormjsfdemo.worthant.jsfgraph.utils.ResultUtils;
+import com.worthant.jsfgraph.db.DAOFactory;
+import com.worthant.jsfgraph.entity.ResultEntity;
+import com.worthant.jsfgraph.utils.ResultUtils;
 import jakarta.annotation.PostConstruct;
 
 import java.io.Serializable;

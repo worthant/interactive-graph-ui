@@ -1,6 +1,6 @@
-package com.example.eclipselinkormjsfdemo.worthant.jsfgraph.db;
+package com.worthant.jsfgraph.db;
 
-import com.example.eclipselinkormjsfdemo.worthant.jsfgraph.entity.ResultEntity;
+import com.worthant.jsfgraph.entity.ResultEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Root;
 
