@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: 'Papyrus', sans-serif;
+    }
+}
+
+@layer components {
+    .table-cell {
+        @apply border border-white px-2 sm:px-10 py-2 text-center justify-center items-center;
+    }
+
+    .hit {
+        @apply text-green-500;
+        @apply inline-block;
+    }
+
+    .miss {
+        @apply text-red-500;
+    }
+
+    .btn {
+        @apply h-10 w-10 p-2 rounded-lg bg-blue-500 hover:bg-blue-700 text-white;
+    }
+
+    .pressed {
+        @apply bg-white text-black;
+    }
+
+    .lbl {
+        @apply block text-sm font-medium text-gray-300;
+    }
+
+    .graph {
+        @apply min-w-0 w-full sm:w-auto h-auto shadow-inner shadow-gray-600 hover:shadow-xl hover:shadow-cyan-500/50 transition-shadow duration-300 rounded-md;
+    }
+
+    .input-form {
+        @apply backdrop-brightness-90 flex flex-col justify-center gap-4 overflow-auto rounded-lg border border-white p-10 shadow-md lg:p-32 md:p-24 sm:p-16 backdrop-blur-3xl;
+    }
+
+    .input-text {
+        @apply text-black mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300;
+    }
+
+    .submit-btn {
+        @apply w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300;
+    }
+
+    .column {
+        @apply text-center px-10 py-2;
+    }
+
+    .data-table {
+        @apply w-full border-collapse;
+    }
+
+    .goToIndex {
+        @apply btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transform hover:scale-110 transition-transform duration-300
+    }
+}
+
+@media (min-width: 640px) {
+    .custom-grid-sm {
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+}
+
+@media (max-width: 370px) {
+    .table-cell {
+        @apply px-0;
+        min-width: 50px;
+    }
+}
+
+@media (min-width: 640px) {
+    .graph-custom-grid-sm {
+        grid-template-columns: 10fr 1fr 10fr;
+    }
+}
+
+html {
+    @apply scroll-smooth;
+}

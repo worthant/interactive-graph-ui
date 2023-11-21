@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.3.3"
+  },
+  "scripts": {
+    "build": "postcss src/main/webapp/resources/styles/tw.css -o src/main/webapp/resources/styles/main.css",
+    "deploy": "bash deploy.sh"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}

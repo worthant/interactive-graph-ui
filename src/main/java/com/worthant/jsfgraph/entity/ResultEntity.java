@@ -4,11 +4,22 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
+/**
+ * Represents a result entity for storing point data.
+ * This entity is mapped to a database table 'point_model' within the schema 'UNI_NUMBER'.
+ * It includes information about the point coordinates (x, y), radius (r) and whether the point is within a certain area (result).
+ */
 @Entity
 @Table(name = "point_model", schema = "UNI_NUMBER")
 public class ResultEntity {
     private long id;
     private double x;
+
+    private double y;
+
+    private double r;
+
+    private boolean result;
 
     @Id
     @Column
@@ -37,6 +48,29 @@ public class ResultEntity {
     public void setX(double x) {
         this.x = x;
     }
+
+    @Column
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    @Column
+    public double getR() {
+        return r;
+    }
+
+    public void setR(double r) {
+        this.r = r;
+    }
+
+    @Column
+    public boolean getResult() { return result; }
+
+    public void setResult(boolean result) { this.result = result; }
 
     @Override
     public boolean equals(Object o) {

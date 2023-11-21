@@ -5,6 +5,9 @@ import jakarta.persistence.Persistence;
 
 import java.util.Properties;
 
+/**
+ * Utility class for handling JPA EntityManagerFactory.
+ */
 public class JPAUtils {
     private static final EntityManagerFactory factory;
 

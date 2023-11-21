@@ -10,67 +10,68 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Test for managed beans</title>
+    <title>Web lab 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.png" />
+    <h:outputStylesheet library="styles" name="main.css"/>
+    <h:outputStylesheet>
+        .glow:hover {
+            box-shadow: 0 0 5px #9f7aea, 0 0 10px #9f7aea, 0 0 15px #9f7aea, 0 0 20px #9f7aea;
+        }
+    </h:outputStylesheet>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </h:head>
-
 <h:body>
-    <h:form>
-        <h:outputLabel for="x" value="Coordinate X (-5; 5)"/>
-        <h:inputText id="x" styleClass="coords-input" value="#{xBean.XBeanValue}"
-                     required="true" maxlength="7"
-                     requiredMessage="Value X is required"
-                     validatorMessage="The value must be from -5 to 5">
-            <f:converter converterId="jakarta.faces.Double"/>
-            <f:validateDoubleRange minimum="-5" maximum="5"/>
-        </h:inputText>
+    <h:panelGroup layout="block" styleClass="fixed" style="top: 44.2%; left:52.9%;">
+        <h:outputLink
+                styleClass="bg-transparent hover:bg-purple-600 text-white px-4 h-104 w-16 rounded opacity-0 hover:opacity-80 hover:shadow-lg glow col-start-2 row-start-2 transform rotate-5 flex items-center justify-center"
+                value="main.xhtml">
+            Go to Main
+        </h:outputLink>
+    </h:panelGroup>
 
-        <h:commandButton value="Send" styleClass="submit-btn">
-            <f:ajax execute="@form" listener="#{resultsControllerBean.addResult(xBean.XBeanValue)}" render="@form results-table"/>
-        </h:commandButton>
+    <h:panelGroup layout="block" styleClass="font-sans min-h-screen bg-fixed bg-cover text-white p-3"
+         style="background-image: url('#{request.contextPath}/resources/images/portal.png');">
+        <h:panelGroup layout="block" styleClass="mt-0.5 custom-grid-sm grid h-14 grid-cols-1 content-center items-center gap-2 rounded-lg border border-white shadow-lg backdrop-blur">
+            <!-- Github icon -->
+            <h:panelGroup layout="block" styleClass="hidden justify-center sm:flex sm:justify-start">
+                <h:link outcome="https://github.com/worthant/interactive-graph-ui" target="_blank"
+                   styleClass="inline-flex items-center">
+                    <h:graphicImage library="images" name="github.png" alt="GitHub" styleClass="mx-2 h-8" />
+                </h:link>
+            </h:panelGroup>
 
-        <p:remoteCommand name="updateTempValue" action="#{xBean.updateTempValue}" update="temp-table temp-text"/>
-    </h:form>
+            <!-- Header text -->
+            <h:panelGroup layout="block" styleClass="flex justify-center">
+                <p class="overflow-hidden whitespace-nowrap text-center align-middle text-base font-medium">var 789
+                    |
+                    Dvorkin Boris Alexandrovich | P3231</p>
+            </h:panelGroup>
 
-    <h:outputText id="temp-text" name="temp-text-output" value="#{xBean.tempValue}"/>
+            <!-- Time in HH, MM, SS format -->
+            <h:panelGroup layout="block" styleClass="hidden sm:flex sm:justify-end mr-2">
+                <h:panelGroup layout="block" id="date-time" styleClass="self-center text-right text-base font-medium">
+                    <h:outputText id="date" value="" escape="false" />,
+                    <h:outputText id="time" value="" escape="false" />
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
 
-    <h:form>
-        <p:remoteCommand name="updateTempValue" action="#{xBean.updateTempValue}" update="temp-table"/>
+        <!-- Date-time container for mobile (below md breakpoint) -->
+        <h:panelGroup layout="block" styleClass="mt-2 flex justify-center rounded-lg border border-white p-2 shadow-lg backdrop-blur sm:hidden">
+            <h:panelGroup layout="block" id="date-time-mobile" styleClass="text-center text-base font-medium">
+                <h:outputText id="date-mobile" value="" escape="false" />,
+                <h:outputText id="time-mobile" value="" escape="false" />
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
 
-        <h:button value="Update Temp Value" onclick="updateTempValue(); return false;"/>
-    </h:form>
+    <script type="module" src="./resources/js/index.js"></script>
 
-
-    <h:dataTable id="temp-table" var="temp">
-        <h:column>
-            <f:facet name="temp-header">
-                <h:outputText value="temp"/>
-            </f:facet>
-            <h:outputText value="#{xBean.tempValue}"/>
-        </h:column>
-    </h:dataTable>
-
-    <h:button value="Update Temp Value" onclick="updateTempValue(); return false;"/>
-
-    <h:commandButton id="temp-button" value="temp" action="#{xBean.updateTempValue()}">
-        <f:ajax render="temp-text temp-table"/>
-    </h:commandButton>
-
-
-    <h:dataTable id="results-table" var="result" value="#{resultsControllerBean.results}">
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="x"/>
-            </f:facet>
-            <h:outputText value="#{result}"/>
-        </h:column>
-    </h:dataTable>
-
-    <h:outputScript library="js" name="main.js"/>
 </h:body>
 
 </html>

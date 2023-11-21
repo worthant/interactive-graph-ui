@@ -1,0 +1,33 @@
+.btn-home {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #fff;
+    color: #333;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-home:hover {
+    background: #f8f8f8;
+    color: #000;
+}
+
+.parallax-section {
+    text-align: center;
+    color: white;
+    position: relative;
+    background-attachment: fixed;
+}
+
+/* Adjust the following properties as per your design requirements */
+.parallax-section:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay if needed */
+}

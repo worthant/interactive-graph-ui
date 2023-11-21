@@ -5,8 +5,20 @@
                                   https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
 
     <managed-bean>
-        <managed-bean-name>xBean</managed-bean-name>
-        <managed-bean-class>com.worthant.jsfgraph.XBean</managed-bean-class>
+        <managed-bean-name>xCoordinateBean</managed-bean-name>
+        <managed-bean-class>com.worthant.jsfgraph.XCoordinateBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>yCoordinateBean</managed-bean-name>
+        <managed-bean-class>com.worthant.jsfgraph.YCoordinateBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>rCoordinateBean</managed-bean-name>
+        <managed-bean-class>com.worthant.jsfgraph.RCoordinateBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
@@ -15,10 +27,23 @@
         <managed-bean-class>com.worthant.jsfgraph.ResultsControllerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
-            <property-name>XBean</property-name>
-            <value>#{xBean}</value>
+            <property-name>XCoordinateBean</property-name>
+            <value>#{xCoordinateBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>YCoordinateBean</property-name>
+            <value>#{yCoordinateBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>RCoordinateBean</property-name>
+            <value>#{rCoordinateBean}</value>
         </managed-property>
     </managed-bean>
 
+    <managed-bean>
+        <managed-bean-name>coordinateHandlerBean</managed-bean-name>
+        <managed-bean-class>com.worthant.jsfgraph.CoordinateHandlerBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 
 </faces-config>
