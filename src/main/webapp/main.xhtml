@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: boris
+  Date: 11/20/23
+  Time: 2:51 AM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Web Lab 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.png"/>
+    <h:outputStylesheet library="styles" name="main.css"/>
+    <h:outputStylesheet library="styles" name="parallax.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</h:head>
+<h:body>
+    <h:panelGroup layout="block" styleClass="bg-cover backdrop-brightness-95 p-3 text-white min-h-screen"
+                  style="background-image: url('#{request.contextPath}/resources/images/bg.jpg');">
+
+        <!-- Header -->
+        <h:panelGroup layout="block" id="scrollToTop">
+            <h:panelGroup layout="block"
+                          styleClass="mt-0.5 custom-grid-sm grid h-14 grid-cols-1 content-center items-center gap-2 rounded-lg border border-white shadow-lg backdrop-blur-3xl">
+                <!-- Github icon -->
+                <h:panelGroup layout="block" styleClass="hidden justify-center sm:flex sm:justify-start">
+                    <h:link outcome="https://github.com/worthant/interactive-graph-ui" target="_blank"
+                            styleClass="inline-flex items-center">
+                        <h:graphicImage library="images" name="github.png" alt="GitHub" styleClass="mx-2 h-8"/>
+                    </h:link>
+                </h:panelGroup>
+
+                <!-- Header text -->
+                <h:panelGroup layout="block" styleClass="flex justify-center">
+                    <p class="overflow-hidden whitespace-nowrap text-center align-middle text-base font-medium">var 789
+                        |
+                        Dvorkin Boris Alexandrovich | P3231</p>
+                </h:panelGroup>
+
+                <!-- Time in HH, MM, SS format -->
+                <h:panelGroup layout="block" styleClass="hidden sm:flex sm:justify-end mr-2">
+                    <h:panelGroup layout="block" id="date-time"
+                                  styleClass="self-center text-right text-sm sm:text-base font-medium">
+                        <h:outputText id="date" value="" escape="false"/>,
+                        <h:outputText id="time" value="" escape="false"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+
+            <!-- Date-time container for mobile (below md breakpoint) -->
+            <h:panelGroup layout="block"
+                          styleClass="mt-2 flex justify-center rounded-lg border border-white p-2 shadow-lg backdrop-blur-3xl sm:hidden">
+                <h:panelGroup layout="block" id="date-time-mobile" styleClass="text-center text-base font-medium">
+                    <h:outputText id="date-mobile" value="" escape="false"/>,
+                    <h:outputText id="time-mobile" value="" escape="false"/>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+
+        <!-- Main content -->
+        <h:panelGroup layout="block" id="scrollToGraph" styleClass="graph-custom-grid-sm mt-5 grid grid-cols-1 gap-6">
+            <!-- Graph (1st column) -->
+            <h:panelGroup layout="block"
+                          styleClass="flex justify-center overflow-auto rounded-lg border border-white shadow-md backdrop-blur-3xl">
+                <canvas id="graphCanvas" width="650" height="650" class="graph"></canvas>
+            </h:panelGroup>
+
+            <!-- Buttons (2nd column) -->
+            <h:panelGroup layout="block"
+                          styleClass="flex flex-row sm:flex-col items-center justify-center gap-4 sm:gap-6">
+                <button id="clearPointsBtn" class="btn" onclick="showConfirmationPopup()"><i class="fa fa-trash"/>
+                </button>
+                <button id="drawModeBtn" class="btn"><i class="fa-solid fa-paintbrush"/></button>
+                <button id="magnetModeBtn" class="btn"><i class="fa-solid fa-magnet"/></button>
+                <button id="zoomInBtn" class="btn"><i class="fa-solid fa-plus"/></button>
+                <button id="zoomOutBtn" class="btn"><i class="fa-solid fa-minus"/></button>
+                <button id="restoreZoom" class="btn"><i class="fa-solid fa-rotate-right"/></button>
+            </h:panelGroup>
+
+            <!-- Input Form (3rd column) -->
+            <h:form id="input-form" styleClass="input-form">
+                <!-- X Slider -->
+                <h:panelGroup styleClass="flex flex-col gap-2">
+                    <h:outputText id="xValueLabel" styleClass="text-center" value="X: #{xCoordinateBean.XBeanValue}"/>
+                    <p:slider id="xSlider" minValue="-5" maxValue="5" step="0.1" for="xValue"
+                              onSlideEnd="updateX(event, ui)"/>
+                    <h:inputText id="xValue" value="#{xCoordinateBean.XBeanValue}" maxlength="7" styleClass="hidden">
+                        <f:validateDoubleRange minimum="-5" maximum="5"/>
+                    </h:inputText>
+                    <h:message for="xValue"
+                               styleClass="text-red-500 mt-2 bg-red-100 p-2 rounded border border-red-400"/>
+                </h:panelGroup>
+
+                <!-- Y Input -->
+                <h:panelGroup styleClass="flex flex-col gap-2">
+                    <h:outputLabel for="yValue" value="Y: (-3, 5)" styleClass="lbl text-center"/>
+                    <h:inputText id="yValue" value="#{yCoordinateBean.YBeanValue}" maxlength="8"
+                                 styleClass="input-text">
+                        <f:validateDoubleRange minimum="-3" maximum="5"/>
+                    </h:inputText>
+                    <h:message for="yValue"
+                               styleClass="text-red-500 mt-2 bg-red-100 p-2 rounded border border-red-400"/>
+                </h:panelGroup>
+
+                <!-- R Slider -->
+                <h:panelGroup styleClass="flex flex-col gap-2">
+                    <h:outputText id="rValueLabel" styleClass="text-center" value="R: #{rCoordinateBean.RBeanValue}"/>
+                    <p:slider id="rSlider" minValue="1" maxValue="4" step="0.25" for="rValue"
+                              onSlideEnd="updateCanvas(event, ui)"/>
+                    <h:inputText id="rValue" value="#{rCoordinateBean.RBeanValue}" maxlength="7" styleClass="hidden">
+                        <f:validateDoubleRange minimum="1" maximum="4"/>
+                    </h:inputText>
+                    <h:message for="rValue"
+                               styleClass="text-red-500 mt-2 bg-red-100 p-2 rounded border border-red-400"/>
+                </h:panelGroup>
+
+                <!-- Submit Button -->
+                <h:commandButton value="Check" styleClass="submit-btn">
+                    <f:ajax execute="@form"
+                            listener="#{resultsControllerBean.addResult(xCoordinateBean.XBeanValue, yCoordinateBean.YBeanValue, rCoordinateBean.RBeanValue)}"
+                            render="@form results-table"/>
+                </h:commandButton>
+            </h:form>
+        </h:panelGroup>
+
+        <!-- Results dataTable -->
+        <div class="parallax-section"
+             style="background: url('#{request.contextPath}/resources/images/bg3.jpg') fixed; background-size: cover;">
+            <h:panelGroup layout="block" id="scrollToTable"
+                          styleClass="backdrop-brightness-95 mt-6 rounded-lg border border-white shadow-md backdrop-blur-3xl">
+                <div style="max-height: 500px; overflow-y: auto;">
+                    <h:dataTable styleClass="data-table" id="results-table" var="result"
+                                 value="#{resultsControllerBean.results}">
+                        <!-- X column -->
+                        <h:column styleClass="column rounded-t-2xl">
+                            <f:facet name="header">
+                                <h:outputText value="x"/>
+                            </f:facet>
+                            <h:outputText styleClass="text-center" value="#{result.x}"/>
+                        </h:column>
+
+                        <!-- Y column -->
+                        <h:column styleClass="column">
+                            <f:facet name="header">
+                                <h:outputText value="y"/>
+                            </f:facet>
+                            <h:outputText styleClass="text-center" value="#{result.y}"/>
+                        </h:column>
+
+                        <!-- R column -->
+                        <h:column styleClass="column">
+                            <f:facet name="header">
+                                <h:outputText value="r"/>
+                            </f:facet>
+                            <h:outputText styleClass="text-center" value="#{result.r}"/>
+                        </h:column>
+
+                        <!-- Hit column -->
+                        <h:column styleClass="column">
+                            <f:facet name="header">
+                                <h:outputText value="hit"/>
+                            </f:facet>
+                            <h:panelGroup layout="block" styleClass="hit" rendered="#{result.result}">
+                                <h:graphicImage library="images" name="hit.svg" alt="Hit"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="miss" rendered="#{not result.result}">
+                                <h:outputText value="❌"/>
+                            </h:panelGroup>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </h:panelGroup>
+        </div>
+
+        <!-- Link to index.xhtml -->
+        <div class="parallax-section rounded-lg mt-10 relative"
+             style="height: 500px; background: url('#{request.contextPath}/resources/images/bg2.jpg') fixed; background-size: cover;">
+            <!-- Spacing for Parallax Scrolling Effect -->
+            <div style="height: 300px;"></div>
+
+            <!-- Home Button -->
+            <div class="home-button-container text-center">
+                <h:outputLink value="index.xhtml" styleClass="btn-home">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span>Home</span>
+                </h:outputLink>
+            </div>
+
+            <!-- Additional Spacing if needed -->
+            <div style="height: 100px;"></div>
+        </div>
+    </h:panelGroup>
+
+    <!-- Confirmation pop-up to prevent accidental clearing of all the points -->
+    <div id="confirmationPopup" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Delete Points</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">Are you sure you want to delete all points from the database?</p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="cancelBtn" class="px-4 py-2 bg-gray-200 text-black rounded-md"
+                            onclick="hideConfirmationPopup()">Cancel
+                    </button>
+                    <button id="confirmBtn" class="px-4 py-2 bg-red-600 text-white rounded-md"
+                            onclick="deletePoints()">Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form for handling user click on canvas -->
+    <h:form id="graph-form">
+        <h:inputHidden id="xGraphValue" value="#{coordinateHandlerBean.x}"/>
+        <h:inputHidden id="yGraphValue" value="#{coordinateHandlerBean.y}"/>
+        <h:commandButton id="handleClick" styleClass="hidden">
+            <f:ajax execute="@form"
+                    listener="#{resultsControllerBean.addResult(coordinateHandlerBean.x, coordinateHandlerBean.y, rCoordinateBean.RBeanValue)}"
+                    render="@form xGraphValue yGraphValue results-table"/>
+        </h:commandButton>
+    </h:form>
+
+    <!-- Delete everything -->
+    <h:form id="clear-points">
+        <!-- Hidden btn for clearing all the points -->
+        <h:commandButton id="clearPoints" styleClass="hidden">
+            <f:ajax execute="@form"
+                    listener="#{resultsControllerBean.clearResults()}"
+                    render="input-form results-table"/>
+        </h:commandButton>
+    </h:form>
+
+    <!-- Redraw points on canvas -->
+    <h:form id="update-radius">
+        <h:inputHidden id="radius" value="#{rCoordinateBean.RBeanValue}"/>
+        <h:commandButton id="updateCanvas" styleClass="hidden">
+            <f:ajax execute="@form"
+                    listener="#{resultsControllerBean.updateCanvas(rCoordinateBean.RBeanValue)}"
+                    render="@form"/>
+        </h:commandButton>
+    </h:form>
+
+    <script type="module" src="./resources/js/canvas-setup.js"></script>
+    <script type="module" src="./resources/js/main.js"></script>
+
+</h:body>
+</html>

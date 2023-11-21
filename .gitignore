@@ -193,3 +193,9 @@ Temporary Items
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
+./node_modules
+node_modules/*
+node_modules
+./public/output.css
+public/output.css
+public/output
