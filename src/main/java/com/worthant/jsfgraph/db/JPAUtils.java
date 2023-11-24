@@ -2,6 +2,7 @@ package com.worthant.jsfgraph.db;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import lombok.Getter;
 
 import java.util.Properties;
 
@@ -9,6 +10,7 @@ import java.util.Properties;
  * Utility class for handling JPA EntityManagerFactory.
  */
 public class JPAUtils {
+    @Getter
     private static final EntityManagerFactory factory;
 
     static {
@@ -20,9 +22,5 @@ public class JPAUtils {
             System.err.println("Something went wrong during initializing EclipseLink: " + ex);
             throw new ExceptionInInitializerError();
         }
-    }
-
-    public static EntityManagerFactory getFactory() {
-        return factory;
     }
 }

@@ -5,6 +5,10 @@ import com.worthant.jsfgraph.entity.ResultEntity;
 import com.worthant.jsfgraph.utils.AreaChecker;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.context.FacesContext;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +19,9 @@ import java.util.Locale;
  * Managed bean for handling results in JSF application.
  * This bean is responsible for managing operations related to result entities.
  */
+@Getter
+@Setter
+@Slf4j
 public class ResultsControllerBean implements Serializable {
     private XCoordinateBean xCoordinateBean;
     private YCoordinateBean yCoordinateBean;
@@ -29,6 +36,7 @@ public class ResultsControllerBean implements Serializable {
     public void init() {
         var resultsEntities = DAOFactory.getInstance().getResultDAO().getAllResults();
         results = new ArrayList<>(resultsEntities);
+        log.info("Results initialized with {} entries.", results.size());
     }
 
     /**
@@ -41,15 +49,13 @@ public class ResultsControllerBean implements Serializable {
      * @param r the radius for the area check
      */
     public void addResult(Double x, Double y, Double r) {
-        ResultEntity en = new ResultEntity();
         boolean result = AreaChecker.isInArea(x, y, r);
-        en.setX(x);
-        en.setY(y);
-        en.setR(r);
-        en.setResult(result);
+
+        ResultEntity en = ResultEntity.builder().x(x).y(y).r(r).result(result).build();
 
         results.add(en);
         DAOFactory.getInstance().getResultDAO().addNewResult(en);
+        log.info("Added new result to the db: X={}, Y={}, R={}", x, y, r);
 
         String script = String.format(Locale.US, "window.drawDotOnCanvas(%f, %f, %f, %b, true);", x, y, r, result);
         FacesContext.getCurrentInstance().getPartialViewContext().getEvalScripts().add(script);
@@ -61,7 +67,6 @@ public class ResultsControllerBean implements Serializable {
      * @param r new radius
      */
     public void updateCanvas(double r) {
-        System.out.println("Updating r value: " + r);
         for (ResultEntity en : results) {
             boolean result = AreaChecker.isInArea(en.getX(), en.getY(), r);
             en.setR(r);
@@ -72,49 +77,16 @@ public class ResultsControllerBean implements Serializable {
             FacesContext.getCurrentInstance().getPartialViewContext().getEvalScripts().add(script);
 
         }
-        System.out.println("Drawing...");
+        log.info("Canvas updated with new radius: {}", r);
     }
 
     /**
      * Clears the database and locally stored array from all the points
      */
     public void clearResults() {
-        System.out.println("Clearing the database...");
         DAOFactory.getInstance().getResultDAO().clearResults();
         results.clear();
-        System.out.println("Database and local results array cleared");
-        System.out.println("Results array size: " + results.size());
-    }
-    public XCoordinateBean getXCoordinateBean() {
-        return xCoordinateBean;
-    }
-
-    public void setXCoordinateBean(XCoordinateBean xCoordinateBean) {
-        this.xCoordinateBean = xCoordinateBean;
-    }
-
-    public YCoordinateBean getYCoordinateBean() {
-        return yCoordinateBean;
-    }
-
-    public void setYCoordinateBean(YCoordinateBean yCoordinateBean) {
-        this.yCoordinateBean = yCoordinateBean;
-    }
-
-    public RCoordinateBean getRCoordinateBean() {
-        return rCoordinateBean;
-    }
-
-    public void setRCoordinateBean(RCoordinateBean rCoordinateBean) {
-        this.rCoordinateBean = rCoordinateBean;
-    }
-
-    public ArrayList<ResultEntity> getResults() {
-        return results;
-    }
-
-    public void setResults(ArrayList<ResultEntity> results) {
-        this.results = results;
+        log.info("All results cleared from database and local array.");
     }
 }
 
