@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Created by IntelliJ IDEA.
-  User: zerumi
-  Date: 27.10.2023
+  User: boris
+  Date: 08.11.2023
   Time: 18:41
 -->
 <!DOCTYPE html
@@ -26,16 +26,18 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </h:head>
 <h:body>
+
+    <!-- Link to main.xhtml -->
     <h:panelGroup layout="block" styleClass="fixed" style="top: 44.2%; left:52.9%;">
-        <h:outputLink
-                styleClass="bg-transparent hover:bg-purple-600 text-white px-4 h-104 w-16 rounded opacity-0 hover:opacity-80 hover:shadow-lg glow col-start-2 row-start-2 transform rotate-5 flex items-center justify-center"
-                value="main.xhtml">
-            Go to Main
-        </h:outputLink>
+        <h:link styleClass="bg-transparent hover:bg-purple-600 text-white px-4 h-104 w-16 rounded opacity-0 hover:opacity-80 hover:shadow-lg glow col-start-2 row-start-2 transform rotate-5 flex items-center justify-center"
+                value="~Teleport to main~" outcome="goToMain"/>
     </h:panelGroup>
 
+    <!-- Main container -->
     <h:panelGroup layout="block" styleClass="font-sans min-h-screen bg-fixed bg-cover text-white p-3"
          style="background-image: url('#{request.contextPath}/resources/images/portal.png');">
+
+        <!-- Header -->
         <h:panelGroup layout="block" styleClass="mt-0.5 custom-grid-sm grid h-14 grid-cols-1 content-center items-center gap-2 rounded-lg border border-white shadow-lg backdrop-blur">
             <!-- Github icon -->
             <h:panelGroup layout="block" styleClass="hidden justify-center sm:flex sm:justify-start">
