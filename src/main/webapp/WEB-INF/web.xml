@@ -25,4 +25,19 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error-pages/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error-pages/500.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>503</error-code>
+        <location>/error-pages/503.jsp</location>
+    </error-page>
+
 </web-app>
