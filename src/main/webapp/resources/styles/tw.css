@@ -9,45 +9,79 @@
 }
 
 @layer components {
+    .bg-custom-light {
+        background-color: rgb(130 135 93);
+    }
+
+    .bg-custom-dark {
+        @apply bg-black;
+    }
+
+    .input-custom-dark {
+        background-color: #2B2A33;
+    }
+
+    .border-custom-dark {
+        border-color: rgb(32, 38, 41);
+    }
+
+    .dark .ui-slider {
+        background-color: #101416;
+    }
+
+    .dark .ui-slider .ui-slider-range {
+        @apply bg-yellow-500;
+    }
+
+    .dark .ui-slider .ui-slider-handle {
+        background-color: #101416;
+        background-image: none;
+        @apply border-yellow-500;
+    }
+
     .table-cell {
-        @apply border border-white px-2 sm:px-10 py-2 text-center justify-center items-center;
+        @apply border border-white dark:border-custom-dark px-2 sm:px-10 py-2 text-center justify-center items-center;
     }
 
     .hit {
-        @apply text-green-500;
+        @apply text-green-500 dark:text-green-900;
         @apply inline-block;
     }
 
     .miss {
-        @apply text-red-500;
+        @apply text-red-500 dark:text-red-900;
     }
 
     .btn {
         @apply h-10 w-10 p-2 rounded-lg bg-blue-500 hover:bg-blue-700 text-white;
+        @apply dark:bg-gray-900 dark:text-yellow-500 dark:hover:bg-gray-600;
     }
 
     .pressed {
         @apply bg-white text-black;
     }
 
-    .lbl {
-        @apply block text-sm font-medium text-gray-300;
-    }
-
     .graph {
-        @apply min-w-0 w-full sm:w-auto h-auto shadow-inner shadow-gray-600 hover:shadow-xl hover:shadow-cyan-500/50 transition-shadow duration-300 rounded-md;
+        @apply min-w-0 w-full sm:w-auto h-auto rounded-md;
     }
 
     .input-form {
-        @apply backdrop-brightness-90 flex flex-col justify-center gap-4 overflow-auto rounded-lg border border-white p-10 shadow-md lg:p-32 md:p-24 sm:p-16 backdrop-blur-3xl;
+        @apply backdrop-brightness-90 flex flex-col justify-center gap-4 overflow-auto rounded-lg;
+        @apply border border-white dark:border-custom-dark p-10 shadow-md lg:p-32 md:p-24 sm:p-16 backdrop-blur-3xl;
     }
 
     .input-text {
-        @apply text-black mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300;
+        @apply text-black mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none;
+        @apply focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300;
+        @apply dark:text-white dark:bg-custom-dark dark:border-custom-dark;
+        @apply dark:focus:ring-custom-dark dark:focus:border-custom-dark;
     }
 
+
     .submit-btn {
-        @apply w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300;
+        @apply w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none;
+        @apply focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300;
+        @apply dark:bg-gray-900 dark:text-yellow-500 dark:hover:bg-gray-600;
     }
 
     .column {
@@ -59,13 +93,50 @@
     }
 
     .goToIndex {
-        @apply btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transform hover:scale-110 transition-transform duration-300
+        @apply btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transform;
+        @apply hover:scale-110 transition-transform duration-300;
+    }
+
+    .btn-home {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #fff;
+        color: #333;
+        border-radius: 5px;
+        text-decoration: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: background 0.3s, color 0.3s;
+        @apply dark:border-custom-dark dark:bg-black dark:text-gray-400;
+    }
+
+    .btn-home:hover {
+        background: #f8f8f8;
+        color: #000;
+    }
+
+    .parallax-section {
+        position: relative;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        min-height: 500px; /* Adjust as needed */
+    }
+
+    .content-container {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        @apply p-3;
     }
 }
 
 @media (min-width: 640px) {
     .custom-grid-sm {
         grid-template-columns: 1fr 2fr 1fr;
+    }
+    .graph-custom-grid-sm {
+        grid-template-columns: 10fr 1fr 10fr;
     }
 }
 
@@ -76,9 +147,9 @@
     }
 }
 
-@media (min-width: 640px) {
-    .graph-custom-grid-sm {
-        grid-template-columns: 10fr 1fr 10fr;
+@media (max-width: 640px) {
+    .parallax-section {
+        background-attachment: scroll; /* Disable fixed background for better performance on mobile */
     }
 }
 
