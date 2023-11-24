@@ -240,7 +240,7 @@ export function attachCanvasListeners() {
             drawDot(canvasX, canvasY);
             // sendToServer
             sendCoords(x, y);
-        }, 250); // 250 milliseconds debounce time
+        }, 30);
     });
 }
 
@@ -398,3 +398,16 @@ export function setupParallax() {
         }
     });
 }
+
+window.toggleTheme = function toggleTheme() {
+    $('html').toggleClass('dark');
+    $('#lightBtn').toggleClass('hidden');
+    $('#darkBtn').toggleClass('hidden');
+}
+
+window.toggleThemeMobile = function toggleThemeMobile() {
+    $('html').toggleClass('dark');
+    $('#lightMobileBtn').toggleClass('hidden');
+    $('#darkMobileBtn').toggleClass('hidden');
+}
+
