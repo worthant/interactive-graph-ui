@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14.7
+    environment:
+      POSTGRES_DB: studs
+      POSTGRES_USER: UNI_NUMBER
+      POSTGRES_PASSWORD: PASSWORD
+    volumes:
+      - ./resources/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  app:
+    build: .
+    ports:
+      - "32318:32318"
+      - "32321:32321"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+    networks:
+      - app-network
+
+networks:
+  app-network:
