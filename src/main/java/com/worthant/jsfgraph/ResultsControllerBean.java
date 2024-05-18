@@ -14,7 +14,6 @@ import java.util.Locale;
 
 import javax.management.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,8 +38,7 @@ public class ResultsControllerBean implements Serializable {
      */
     @PostConstruct
     public void init() {
-        var resultsEntities =
-                DAOFactory.getInstance().getResultDAO().getAllResults();
+        var resultsEntities = DAOFactory.getInstance().getResultDAO().getAllResults();
         results = new ArrayList<>(resultsEntities);
         log.info("Results initialized with {} entries.", results.size());
 
@@ -48,10 +46,17 @@ public class ResultsControllerBean implements Serializable {
         try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName pointsCounterName = new ObjectName("com.worthant.jsfgraph.mbeans:type=PointsCounter");
-            pointsCounter = new PointsCounter();
-            StandardMBean mbean = new StandardMBean(pointsCounter, PointsCounterMBean.class);
-            mbs.registerMBean(mbean, pointsCounterName);
+            pointsCounter = new PointsCounter(DAOFactory.getInstance().getResultDAO());
+            mbs.registerMBean(pointsCounter, pointsCounterName);
+
+            // Регистрация слушателя уведомлений
+            NotificationListener listener = (notification, handback) -> System.out.println("Received notification: " + notification.getMessage());
+            mbs.addNotificationListener(pointsCounterName, listener, null, null);
+
             missPercentage = new MissPercentage(pointsCounter);
+            ObjectName missPercentageName = new ObjectName("com.worthant.jsfgraph.mbeans:type=MissPercentage");
+            StandardMBean missPercentageMBean = new StandardMBean(missPercentage, MissPercentageMBean.class);
+            mbs.registerMBean(missPercentageMBean, missPercentageName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,8 +82,7 @@ public class ResultsControllerBean implements Serializable {
             pointsCounter.incrementMissedPoints();
         }
 
-        ResultEntity en =
-                ResultEntity.builder().x(x).y(y).r(r).result(result).build();
+        ResultEntity en = ResultEntity.builder().x(x).y(y).r(r).result(result).build();
 
         results.add(en);
         DAOFactory.getInstance().getResultDAO().addNewResult(en);
@@ -122,6 +126,7 @@ public class ResultsControllerBean implements Serializable {
     public void clearResults() {
         DAOFactory.getInstance().getResultDAO().clearResults();
         results.clear();
+        pointsCounter.resetAndInitializeCounts();
         log.info("All results cleared from database and local array.");
     }
 }
