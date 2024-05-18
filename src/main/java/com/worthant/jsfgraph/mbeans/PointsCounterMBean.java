@@ -6,4 +6,5 @@ public interface PointsCounterMBean {
     void incrementTotalPoints();
     void incrementMissedPoints();
     void resetConsecutiveMisses();
+    void resetAndInitializeCounts();
 }
