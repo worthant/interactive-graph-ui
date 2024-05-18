@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "postcss src/main/webapp/resources/styles/tw.css -o src/main/webapp/resources/styles/main.css",
-    "deploy": "bash deploy.sh"
+    "deploy": "bash resources/deploy.sh"
   },
   "dependencies": {
     "jquery": "^3.7.1"
