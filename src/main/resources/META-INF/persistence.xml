@@ -3,7 +3,15 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-  <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
-      <class>com.worthant.jsfgraph.entity.ResultEntity</class>
-  </persistence-unit>
+
+    <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
+        <class>com.worthant.jsfgraph.entity.ResultEntity</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://${DB_HOST}:5432/studs"/>
+            <property name="jakarta.persistence.jdbc.user" value="UNI_NUMBER"/>
+            <property name="jakarta.persistence.jdbc.password" value="PASSWORD"/>
+        </properties>
+    </persistence-unit>
+
 </persistence>
