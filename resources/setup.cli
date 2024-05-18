@@ -1,0 +1,20 @@
+batch
+/socket-binding-group=standard-sockets/socket-binding=http:write-attribute(name=port,value=${env.PORTBASE})
+/socket-binding-group=standard-sockets/socket-binding=https:write-attribute(name=port,value=${env.PORTBASE}2)
+/socket-binding-group=standard-sockets/socket-binding=management-http:write-attribute(name=port,value=${env.JCONSOLE_PORT})
+/socket-binding-group=standard-sockets/socket-binding=management-https:write-attribute(name=port,value=${env.PORTBASE}4)
+
+/subsystem=datasources/data-source=ExampleDS:add(
+    jndi-name="java:/ExampleDS",
+    connection-url="jdbc:postgresql://localhost:5432/${env.POSTGRES_DB}",
+    driver-name=postgresql,
+    user-name="${env.POSTGRES_USER}",
+    password="${env.POSTGRES_PASSWORD}"
+)
+
+/subsystem=datasources/jdbc-driver=postgresql:add(
+    driver-name="postgresql",
+    driver-module-name="org.postgresql",
+    driver-class-name="org.postgresql.Driver"
+)
+run-batch
