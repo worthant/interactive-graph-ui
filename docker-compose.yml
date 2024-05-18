@@ -14,9 +14,10 @@ services:
 
   app:
     build: .
+    container_name: wildfly_app
     ports:
       - "32318:32318"
-      - "32321:32321"
+      - "7203:7203"
     depends_on:
       - db
     environment:
@@ -26,3 +27,4 @@ services:
 
 networks:
   app-network:
+    driver: bridge
