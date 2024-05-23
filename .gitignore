@@ -1,11 +1,11 @@
 # Environments, in case you would use them
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+# .env
+# .venv
+# env/
+# venv/
+# ENV/
+# env.bak/
+# venv.bak/
 
 ### Maven ###
 target/
