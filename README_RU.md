@@ -146,8 +146,27 @@
 
 ## Как использовать мой проект
 
+### Docker
+
+> [!TIP]
+> Чтобы просто посмотреть лабу (нетривиально профилировать для курса по ОПИ и на helios нету docker)
+
+```bash
+git clone git@github.com:worthant/interactive-graph-ui.git
+cd interactive-graph-ui
+mvn clean package
+docker-compose up --build
+```
+
+### Ручная настройка (для гелиоса)
+
+> [!NOTE]
+> Я добавил полностью рабочий `standalone.xml` конфиг в resources - можете его глянуть для примера и использовать в лабе
+
 1. Выполните все шаги из [моего гайда](https://github.com/worthant/web3-jsf-eclipselink-template/)
 2. Не забудьте создать базу данных в studs:
+
+> Подключиться - `psql -h pg -d studs`
 
 ```sql
 CREATE TABLE point_model {

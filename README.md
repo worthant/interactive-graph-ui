@@ -146,8 +146,27 @@
 
 ## How to use my project
 
+### Docker
+
+> [!TIP]
+> For a quick setup to view the project (not suitable for profiling for the OPI course and Docker is not available on Helios)
+
+```bash
+git clone git@github.com:worthant/interactive-graph-ui.git
+cd interactive-graph-ui
+mvn clean package
+docker-compose up --build
+```
+
+### Manual setup (for helios mainly)
+
+> [!NOTE]
+> I've included a fully functional standalone.xml config in the resources - you can check it out as an example and use it for the project.
+
 1. Follow all the steps from [my guide](https://github.com/worthant/web3-jsf-eclipselink-template/)
 2. Don't forget to create a database in studs:
+
+> Connect with `psql -h pg -d studs`
 
 ```sql
 CREATE TABLE point_model {
