@@ -8,9 +8,6 @@
         <class>com.worthant.jsfgraph.entity.ResultEntity</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://${DB_HOST}:5432/studs"/>
-            <property name="jakarta.persistence.jdbc.user" value="UNI_NUMBER"/>
-            <property name="jakarta.persistence.jdbc.password" value="PASSWORD"/>
         </properties>
     </persistence-unit>
 

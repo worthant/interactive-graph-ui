@@ -18,10 +18,11 @@ RUN wget https://github.com/wildfly/wildfly/releases/download/26.1.3.Final/wildf
 RUN wget https://jdbc.postgresql.org/download/postgresql-42.3.1.jar -O /tmp/postgresql.jar \
     && $WILDFLY_HOME/bin/jboss-cli.sh --command="module add --name=org.postgresql --resources=/tmp/postgresql.jar --dependencies=javax.api,javax.transaction.api"
 
-ENV POSTGRES_DB studs
-ENV POSTGRES_USER UNI_NUMBER
-ENV POSTGRES_PASSWORD PASSWORD
-ENV PORTBASE 32318
+# Use environment variables defined in .env file
+ARG POSTGRES_DB
+ARG POSTGRES_USER
+ARG POSTGRES_PASSWORD
+ARG PORTBASE=32318
 
 COPY ./resources/standalone.xml $WILDFLY_HOME/standalone/configuration/
 COPY ./target/interactive-graph-ui-1.0-SNAPSHOT.war $WILDFLY_HOME/standalone/deployments/

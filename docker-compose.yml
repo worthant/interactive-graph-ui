@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:14.7
     environment:
-      POSTGRES_DB: studs
-      POSTGRES_USER: UNI_NUMBER
-      POSTGRES_PASSWORD: PASSWORD
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - ./resources/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
@@ -21,7 +21,10 @@ services:
     depends_on:
       - db
     environment:
-      DB_HOST: db
+      DB_HOST: ${DB_HOST}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - app-network
 
